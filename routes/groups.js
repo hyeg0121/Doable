@@ -81,4 +81,22 @@ router.get('/:group_no', (req, res) => {
     )
 });
 
+router.post('/:group_no/users/:user_no', (req, res) => {
+    const group_no = req.params.group_no;
+    const user_no = req.params.user_no;
+
+    pool.query(
+        `INSERT INTO membership (user_no, group_no, created_at) VALUES (? ,?, now())`,
+        [user_no, group_no],
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(400).json(err);
+            } else {
+                res.status(201).json({message: '그룹에 성공적으로 가입하였습니다.'});
+            }
+        }
+    );
+});
+
 module.exports = router;
