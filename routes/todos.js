@@ -34,15 +34,25 @@ router.post('/', (req, res) => {
 
 router.get('/', (req, res) => {
     pool.query(
-        'SELECT * FROM todo',
+        `SELECT todo.*, category.* FROM todo 
+        INNER JOIN category ON todo.category_no = category.category_no`,
         (err, results) => {
             if (err) {
-                console.error(err);
-                res.status(400).json(err);
-            } else if (results.length === 0) {
-                res.status(404).json({message: '데이터가 존재하지 않습니다.'})
+                console.log(err);
+                res.status(400).json({error: '데이터가 존재하지 않습니다.'})
             } else {
-                res.status(400).json(results);
+                const editedResult = results.map(result => {
+                    return {
+                        todo_no: result.todo_no,
+                        todo_name: result.todo_name,
+                        category: {
+                            category_no: result.category_no,
+                            category_name: result.category_name,
+                            category_color: result.category_color
+                        }
+                    }
+                })
+                res.status(200).json(editedResult);
             }
         }
     )

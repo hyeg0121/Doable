@@ -81,5 +81,35 @@ router.get('/:user_no/categories', (req, res) => {
     )
 });
 
+router.get('/:user_no/todos', (req, res) => {
+    const user_no = req.params.user_no;
+
+    pool.query(
+        `SELECT todo.*, category.* FROM todo 
+        INNER JOIN category ON todo.category_no = category.category_no
+        WHERE todo.user_no = ?`,
+        [user_no],
+        (err, results) => {
+            if (err) {
+                console.log(err);
+                res.status(400).json({error: '유저의 투두를 조회하는데 실패했습니다.'})
+            } else {
+                const editedResult = results.map(result => {
+                    return {
+                        todo_no: result.todo_no,
+                        todo_name: result.todo_name,
+                        category: {
+                            category_no: result.category_no,
+                            category_name: result.category_name,
+                            category_color: result.category_color
+                        }
+                    }
+                })
+                res.status(200).json(editedResult);
+            }
+        }
+    )
+});
+
 
 module.exports = router;
