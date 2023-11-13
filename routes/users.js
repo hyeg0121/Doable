@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
                 console.error(err);
                 res.status(400).json(err);
             } else if (results.length === 0) {
-                res.status(404).json({ message: '데이터가 존재하지 않습니다.' })
+                res.status(404).json({message: '데이터가 존재하지 않습니다.'})
             } else {
                 res.status(400).json(results);
             }
@@ -36,21 +36,13 @@ router.get('/:user_no', (req, res) => {
                 console.error(err);
                 res.status(400).json(err);
             } else if (results.length === 0) {
-                res.status(404).json({ message: '데이터가 존재하지 않습니다.' })
+                res.status(404).json({message: '데이터가 존재하지 않습니다.'})
             } else {
                 res.status(400).json(results[0]);
             }
         }
     )
 });
-
-
-
-
-
-
-
-
 
 
 module.exports = router;
