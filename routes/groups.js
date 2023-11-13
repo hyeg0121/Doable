@@ -26,12 +26,29 @@ router.post('/', (req, res) => {
         (err, rows) => {
             if (err) {
                 console.error(err);
-                res.status(400).json({ error: '그룹을 추가할 수 없습니다.' });
+                res.status(400).json({error: '그룹을 추가할 수 없습니다.'});
             } else {
-                res.status(201).json({ message: '그룹이 성공적으로 추가되었습니다.'});
+                res.status(201).json({message: '그룹이 성공적으로 추가되었습니다.'});
             }
         }
     )
 });
+
+router.get('/', (req, res) => {
+    pool.query(
+        `SELECT * FROM todo_group`,
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(400).json(err);
+            } else if (results.length === 0) {
+                res.status(404).json({message: '데이터가 존재하지 않습니다.'});
+            } else {
+                res.status(400).json(results);
+            }
+        }
+    );
+});
+
 
 module.exports = router;
