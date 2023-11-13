@@ -31,7 +31,7 @@ router.post('/login', (req, res) => {
                         req.session.save()
                         console.log(req.session)
                         console.log(req.session.user)
-                        res.json({result: '로그인 성공'})
+                        res.json({result: rows[0].user_no})
                     } else {
                         res.status(401).json({result: '로그인 실패 (비밀번호 불일치)'})
                     }
