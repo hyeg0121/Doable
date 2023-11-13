@@ -64,5 +64,22 @@ router.get('/:user_no/groups', (req, res) => {
         });
 });
 
+router.get('/:user_no/categories', (req, res) => {
+    const user_no = req.params.user_no;
+
+    pool.query(
+        `SELECT * FROM category WHERE user_no = ?`,
+        [user_no],
+        (err, results) => {
+            if (err) {
+                console.log(err);
+                res.status(400).json({error: '유저의 카테고리를 조회하는데 실패했습니다.'})
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    )
+});
+
 
 module.exports = router;
