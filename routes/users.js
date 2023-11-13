@@ -38,7 +38,7 @@ router.get('/:user_no', (req, res) => {
             } else if (results.length === 0) {
                 res.status(404).json({message: '데이터가 존재하지 않습니다.'})
             } else {
-                res.status(400).json(results[0]);
+                res.status(200).json(results[0]);
             }
         }
     )
