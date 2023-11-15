@@ -99,6 +99,7 @@ router.post('/:group_no/users/:user_no', (req, res) => {
     );
 });
 
+// 그룹 검색
 router.get('/group/search', (req, res) => {
     const q = "%" + req.query.q + "%";
     pool.query(
