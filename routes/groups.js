@@ -36,7 +36,6 @@ router.post('/', (req, res) => {
                             console.error('멤버 추가 오류:', err);
                             res.status(400).json({error: '멤버 추가 오류'});
                         } else {
-                            console.log('멤버 추가 성공');
                             res.status(201).json({message: '그룹이 성공적으로 추가되었습니다.'});
                         }
                     }
@@ -101,9 +100,7 @@ router.post('/:group_no/users/:user_no', (req, res) => {
 });
 
 router.get('/group/search', (req, res) => {
-    console.log('search');
     const q = "%" + req.query.q + "%";
-    console.log(q);
     pool.query(
         `SELECT * FROM todo_group
         WHERE group_name LIKE ?`,

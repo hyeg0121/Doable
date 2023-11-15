@@ -58,7 +58,6 @@ router.get('/:user_no/groups', (req, res) => {
                 console.error('검색 오류: ', err);
                 res.status(500).json({message: '데이터를 찾을 수 없음'});
             }else {
-                console.log('검색 성공')
                 res.status(200).json(results);
             }
         });
