@@ -47,6 +47,7 @@ router.post('/', (req, res) => {
 });
 
 router.get('/', (req, res) => {
+
     pool.query(
         `SELECT * FROM todo_group`,
         (err, results) => {
@@ -94,6 +95,27 @@ router.post('/:group_no/users/:user_no', (req, res) => {
                 res.status(400).json(err);
             } else {
                 res.status(201).json({message: '그룹에 성공적으로 가입하였습니다.'});
+            }
+        }
+    );
+});
+
+router.get('/group/search', (req, res) => {
+    console.log('search');
+    const q = "%" + req.query.q + "%";
+    console.log(q);
+    pool.query(
+        `SELECT * FROM todo_group
+        WHERE group_name LIKE ?`,
+        [q],
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(400).json(err);
+            } else if (results.length === 0) {
+                res.status(200).json({message: '검색 결과가 없습니다.'});
+            } else {
+                res.status(200).json(results);
             }
         }
     );
