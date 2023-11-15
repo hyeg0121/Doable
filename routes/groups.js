@@ -112,8 +112,6 @@ router.get('/group/search', (req, res) => {
             if (err) {
                 console.error(err);
                 res.status(400).json(err);
-            } else if (results.length === 0) {
-                res.status(200).json({message: '검색 결과가 없습니다.'});
             } else {
                 res.status(200).json(results);
             }
