@@ -164,5 +164,20 @@ router.get('/:todo_no', (req, res) => {
     )
 });
 
+router.delete('/:todo_no', (req, res) => {
+   const todo_no = req.params.todo_no;
+        'DELETE FROM todo WHERE todo_no = ? ',
+        [todo_no],
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(400).json({message: '투두를 삭제하지 못했습니다.'});
+            } else {
+                res.status(400).json(results);
+            }
+        }
+    )
+});
+
 
 module.exports = router;
