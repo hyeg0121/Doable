@@ -17,8 +17,8 @@ router.post('/', (req, res) => {
     ];
 
     pool.query(
-        `INSERT INTO todo (user_no, category_no, todo_name, todo_completed) 
-        VALUES (?, ?, ?, 0)`,
+        `INSERT INTO todo (user_no, category_no, todo_name, todo_completed)
+         VALUES (?, ?, ?, 0)`,
         params,
         (err, results) => {
             if (err) {
@@ -32,10 +32,97 @@ router.post('/', (req, res) => {
     )
 });
 
+router.post('/daily', (req, res) => {
+    const params1 = [
+        req.body.user_no,
+        req.body.category_no,
+        req.body.todo_name
+    ];
+
+    pool.query(
+        `INSERT INTO todo (user_no, category_no, todo_name, todo_completed)
+         VALUES (?, ?, ?, 0)`,
+        params1,
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(400).json({error: '투두 추가가 실패했습니다.'});
+            } else {
+                const params2 = [
+                    results.insertId,
+                    req.body.startdate,
+                    req.body.enddate
+                ];
+
+                pool.query(
+                    `INSERT INTO daily_todo (todo_no, todo_startdate, todo_enddate)
+                     VALUES (?, ?, ?)`,
+                    params2,
+                    (err, results) => {
+                        if (err) {
+                            console.error(err);
+                            res.status(400).json({error: '투두 추가가 실패했습니다.'});
+                        } else {
+                            res.status(201).json({message: '투두가 성공적으로 추가되었습니다.'})
+                        }
+                    }
+                )
+            }
+
+        }
+    )
+});
+
+router.post('/daily/increase', (req, res) => {
+    const params1 = [
+        req.body.user_no,
+        req.body.category_no,
+        req.body.todo_name
+    ];
+
+    pool.query(
+        `INSERT INTO todo (user_no, category_no, todo_name, todo_completed)
+         VALUES (?, ?, ?, 0)`,
+        params1,
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(400).json({error: '투두 추가가 실패했습니다.'});
+            } else {
+                const params2 = [
+                    results.insertId,
+                    req.body.startdate,
+                    req.body.enddate,
+                    req.body.todo_option,
+                    req.body.todo_startvalue,
+                    req.body.todo_amount,
+                    req.body.todo_unit
+                ];
+
+                pool.query(
+                    `INSERT INTO increase_todo (todo_no, todo_startdate, todo_enddate, todo_option, todo_startvalue, todo_amount, todo_unit)
+                     VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                    params2,
+                    (err, results) => {
+                        if (err) {
+                            console.error(err);
+                            res.status(400).json({error: '투두 추가가 실패했습니다.'});
+                        } else {
+                            res.status(201).json({message: '투두가 성공적으로 추가되었습니다.'})
+                        }
+                    }
+                )
+            }
+
+        }
+    )
+})
+
 router.get('/', (req, res) => {
     pool.query(
-        `SELECT todo.*, category.* FROM todo 
-        INNER JOIN category ON todo.category_no = category.category_no`,
+        `SELECT todo.*, category.*
+         FROM todo
+                  INNER JOIN category ON todo.category_no = category.category_no`,
         (err, results) => {
             if (err) {
                 console.log(err);
