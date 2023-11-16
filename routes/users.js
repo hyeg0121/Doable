@@ -86,7 +86,8 @@ router.get('/:user_no/todos', (req, res) => {
     pool.query(
         `SELECT todo.*, category.* FROM todo 
         INNER JOIN category ON todo.category_no = category.category_no
-        WHERE todo.user_no = ?`,
+        WHERE todo.user_no = ?
+        ORDER BY todo.todo_completed`,
         [user_no],
         (err, results) => {
             if (err) {
@@ -97,6 +98,7 @@ router.get('/:user_no/todos', (req, res) => {
                     return {
                         todo_no: result.todo_no,
                         todo_name: result.todo_name,
+                        todo_completed: result.todo_completed,
                         category: {
                             category_no: result.category_no,
                             category_name: result.category_name,
