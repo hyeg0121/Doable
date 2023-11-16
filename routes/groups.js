@@ -117,4 +117,26 @@ router.get('/group/search', (req, res) => {
     );
 });
 
+// 그룹 멤버인지 확인하기
+router.get('/:group_no/membership/:user_no', (req, res) => {
+    const groupNo = req.params.group_no;
+    const userNo = req.params.user_no;
+
+    pool.query (
+        `SELECT * FROM membership WHERE group_no = ? AND user_no = ?`,
+        [groupNo, userNo],
+        (err, results) => {
+            if (err) {
+                res.status(400).json({error: '그룹 가입 여부를 확인할 수 없습니다.'});
+            } else {
+                if (results.length === 0)
+                    res.status(200).json({result: false});
+                else
+                    res.status(200).json({result: true});
+
+            }
+        }
+    )
+})
+
 module.exports = router;
