@@ -166,6 +166,7 @@ router.get('/:todo_no', (req, res) => {
 
 router.delete('/:todo_no', (req, res) => {
    const todo_no = req.params.todo_no;
+    pool.query(
         'DELETE FROM todo WHERE todo_no = ? ',
         [todo_no],
         (err, results) => {
