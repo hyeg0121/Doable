@@ -225,7 +225,26 @@ router.patch('/:group_no/todos', (req, res) => {
             }
         }
     )
-})
+});
+
+router.post('/:group_no/users/:user_no', (req, res) => {
+    const groupNo = req.params.group_no;
+    const userNo = req.params.user_no;
+
+    pool.query(
+        `INSERT INTO membership (user_no, group_no, created_at)
+        VALUES (?, ?, now())`,
+        [userNo, groupNo],
+        (err, results) => {
+            if (err) {
+                console.log(err);
+                res.status(400).json({error: '그룹 가입에 실패했습니다.'});
+            } else {
+                res.status(201).json(results);
+            }
+        }
+    )
+});
 
 
 module.exports = router;
