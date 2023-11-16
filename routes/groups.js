@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
     ];
     pool.query(
         `INSERT INTO todo_group (group_name, group_desc, group_search, group_todo, creator_no, group_unit)
-        VALUES (?, ?, ?, ?, ?, ?)`,
+         VALUES (?, ?, ?, ?, ?, ?)`,
         params,
         (err, result) => {
             if (err) {
@@ -29,7 +29,8 @@ router.post('/', (req, res) => {
                 res.status(400).json({error: '그룹을 추가할 수 없습니다.'});
             } else {
                 pool.query(
-                    `INSERT INTO membership (user_no, group_no, created_at) VALUES (? ,?, now())`,
+                    `INSERT INTO membership (user_no, group_no, created_at)
+                     VALUES (?, ?, now())`,
                     [params[4], result.insertId],
                     (err, result) => {
                         if (err) {
@@ -48,7 +49,8 @@ router.post('/', (req, res) => {
 router.get('/', (req, res) => {
 
     pool.query(
-        `SELECT * FROM todo_group`,
+        `SELECT *
+         FROM todo_group`,
         (err, results) => {
             if (err) {
                 console.error(err);
@@ -66,7 +68,9 @@ router.get('/:group_no', (req, res) => {
     const group_no = req.params.group_no;
 
     pool.query(
-        `SELECT * FROM todo_group WHERE group_no = ?`,
+        `SELECT *
+         FROM todo_group
+         WHERE group_no = ?`,
         [group_no],
         (err, results) => {
             if (err) {
@@ -86,7 +90,8 @@ router.post('/:group_no/users/:user_no', (req, res) => {
     const user_no = req.params.user_no;
 
     pool.query(
-        `INSERT INTO membership (user_no, group_no, created_at) VALUES (? ,?, now())`,
+        `INSERT INTO membership (user_no, group_no, created_at)
+         VALUES (?, ?, now())`,
         [user_no, group_no],
         (err, results) => {
             if (err) {
@@ -103,8 +108,9 @@ router.post('/:group_no/users/:user_no', (req, res) => {
 router.get('/group/search', (req, res) => {
     const q = "%" + req.query.q + "%";
     pool.query(
-        `SELECT * FROM todo_group
-        WHERE group_name LIKE ?`,
+        `SELECT *
+         FROM todo_group
+         WHERE group_name LIKE ?`,
         [q],
         (err, results) => {
             if (err) {
@@ -122,8 +128,11 @@ router.get('/:group_no/membership/:user_no', (req, res) => {
     const groupNo = req.params.group_no;
     const userNo = req.params.user_no;
 
-    pool.query (
-        `SELECT * FROM membership WHERE group_no = ? AND user_no = ?`,
+    pool.query(
+        `SELECT *
+         FROM membership
+         WHERE group_no = ?
+           AND user_no = ?`,
         [groupNo, userNo],
         (err, results) => {
             if (err) {
@@ -144,7 +153,9 @@ router.get('/:group_no/users', (req, res) => {
     const groupNo = req.params.group_no;
 
     pool.query(
-        `SELECT * FROM membership WHERE group_no = ?`,
+        `SELECT *
+         FROM membership
+         WHERE group_no = ?`,
         [groupNo],
         (err, results) => {
             if (err) {
@@ -164,7 +175,9 @@ router.patch('/:group_no/todos', (req, res) => {
     ];
 
     pool.query(
-        `SELECT * FROM todo_group WHERE group_no = ?`,
+        `SELECT *
+         FROM todo_group
+         WHERE group_no = ?`,
         [groupNo],
         (err, results) => {
             if (err) res.status(400).json({error: '그룹 업데이트 중 실패하였습니다.1'});
@@ -177,13 +190,11 @@ router.patch('/:group_no/todos', (req, res) => {
                 let userNo = result.bestuser_no;
 
                 if (option) {   // 덜하기
-                    if (amount === null)
                     if (params[1] < amount) {
                         userNo = params[0];
                         amount = params[1];
                     }
                 } else {
-                    console.log('더하기')
                     if (amount < params[1]) {
                         userNo = params[0];
                         amount = params[1];
@@ -196,10 +207,11 @@ router.patch('/:group_no/todos', (req, res) => {
                     groupNo
                 ];
 
-                console.log(updateParams);
-
                 pool.query(
-                    `UPDATE todo_group SET bestuser_no = ?, group_bestamount = ? WHERE group_no = ?`,
+                    `UPDATE todo_group
+                     SET bestuser_no = ?,
+                         group_bestamount = ?
+                     WHERE group_no = ?`,
                     updateParams,
                     (err, results) => {
                         if (err) {
@@ -214,9 +226,6 @@ router.patch('/:group_no/todos', (req, res) => {
         }
     )
 })
-
-
-
 
 
 module.exports = router;
