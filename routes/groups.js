@@ -16,12 +16,13 @@ router.post('/', (req, res) => {
         req.body.group_desc,
         req.body.group_search,
         req.body.group_todo,
+        req.body.group_option,
         req.body.creator_no,
         req.body.group_unit,
     ];
     pool.query(
-        `INSERT INTO todo_group (group_name, group_desc, group_search, group_todo, creator_no, group_unit)
-         VALUES (?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO todo_group (group_name, group_desc, group_search, group_todo, group_option, creator_no, group_unit)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
         params,
         (err, result) => {
             if (err) {
