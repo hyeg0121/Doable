@@ -137,6 +137,86 @@ router.get('/:group_no/membership/:user_no', (req, res) => {
             }
         }
     )
+});
+
+// 그룹 멤버 수 조회하기
+router.get('/:group_no/users', (req, res) => {
+    const groupNo = req.params.group_no;
+
+    pool.query(
+        `SELECT * FROM membership WHERE group_no = ?`,
+        [groupNo],
+        (err, results) => {
+            if (err) {
+                res.status(400).json({error: '그룹 멤버를 조회하는데 실패했습니다.'});
+            } else {
+                res.status(200).json(results);
+            }
+        }
+    )
+});
+
+router.patch('/:group_no/todos', (req, res) => {
+    const groupNo = req.params.group_no;
+    const params = [
+        req.body.user_no,
+        req.body.amount
+    ];
+
+    pool.query(
+        `SELECT * FROM todo_group WHERE group_no = ?`,
+        [groupNo],
+        (err, results) => {
+            if (err) res.status(400).json({error: '그룹 업데이트 중 실패하였습니다.1'});
+            else {
+                const result = results[0];
+                console.log('result:', result);
+
+                const option = parseInt(result.group_option);
+                let amount = result.group_bestamount;
+                let userNo = result.bestuser_no;
+
+                if (option) {   // 덜하기
+                    if (amount === null)
+                    if (params[1] < amount) {
+                        userNo = params[0];
+                        amount = params[1];
+                    }
+                } else {
+                    console.log('더하기')
+                    if (amount < params[1]) {
+                        userNo = params[0];
+                        amount = params[1];
+                    }
+                }
+
+                const updateParams = [
+                    userNo,
+                    amount,
+                    groupNo
+                ];
+
+                console.log(updateParams);
+
+                pool.query(
+                    `UPDATE todo_group SET bestuser_no = ?, group_bestamount = ? WHERE group_no = ?`,
+                    updateParams,
+                    (err, results) => {
+                        if (err) {
+                            console.error(err);
+                            res.status(400).json({error: '그룹 업데이트 중 실패하였습니다.'});
+                        } else {
+                            res.status(200).json(results);
+                        }
+                    }
+                )
+            }
+        }
+    )
 })
+
+
+
+
 
 module.exports = router;
