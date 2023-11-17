@@ -1,0 +1,92 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+}
+
+:root {
+    --main-font: 'Pretendard';
+
+    /* color */
+    --primary-color: #FF665C;
+    --second-color: #FFE0DE;
+    --gray-300: #E0E0E0;
+    --gray-400: #BDBDBD;
+    --gray-500: #9E9E9E;
+    --gray-800: #49454F;
+    --gray-900: #212121;
+    --white: #FFFFFF;
+    --black: #121212;
+    --category1: #FF9C5A;
+    --category2: #FFED4F;
+    --category3: #66E0C6;
+    --category4: #78AEFF;
+    --category5: #BB78FF;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    color: black;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: 'Pretendard-Regular';
+}
+
+/* 하단바 */
+
+
+.menu {
+    position: fixed;
+    height: 70px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    background-color: var(--white);
+}
+
+a{
+    display: flex;
+    flex-direction: column;
+    height: 70px;
+    justify-content: center;
+}
+li{
+    width: 20%;
+}
+.menu-details ul {
+    list-style-type: none;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+}
+.menu-details ul li a {
+    text-decoration: none;
+}
+.bar-icon{
+    font-size: 23px;
+    color: var(--gray-300);
+}
+.bar-name{
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 0;
+    color: var(--gray-300);
+}
+input,
+select{
+    outline: none;
+}
+textarea:focus::placeholder,
+input:focus::placeholder{
+    color: transparent;
+}
+
+textarea::placeholder,
+input::placeholder{
+    color: var(--gray-400);
+}

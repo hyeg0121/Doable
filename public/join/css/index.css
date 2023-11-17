@@ -1,0 +1,80 @@
+html,
+body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 5%;
+    overflow: hidden;
+}
+h1{
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+.login-container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+    width: 83%;
+}
+.name-container,
+.id-container,
+.pw-container,
+.pw-check-container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.id,
+.pw{
+    font-size: 17px;
+}
+input{
+    height: 55px;
+    border: var(--gray-300) solid 1px;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 14px;
+    outline: none;
+}
+input::placeholder{
+    color: var(--gray-300);
+}
+.mail-container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.mail-box{
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+}
+#selbox{
+    height: 55px;
+    width: 34vw;
+    border: var(--gray-300) solid 1px;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+#mail-id-input{
+    width: 40vw;
+}
+#selboxDirect{
+    width: 34vw;
+}
+.join-btn{
+    height: 55px;
+    width: 83%;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    border: 0;
+    color: var(--white);
+    font-size: 16px;
+    cursor: pointer;
+}

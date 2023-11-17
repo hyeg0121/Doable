@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>더able</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <h1>회원가입</h1>
+    <div class="login-container">
+        <div class="name-container">
+            <p class="name">이름</p>
+            <input type="text" placeholder="이름 입력" id="name-input">
+        </div>
+        <div class="id-container">
+            <p class="id">아이디</p>
+            <input type="text" placeholder="아이디 입력" id="id-input">
+        </div>
+        <div class="pw-container">
+            <p class="pw">비밀번호</p>
+            <input type="password" placeholder="비밀번호 입력" id="pw-input">
+        </div>
+        <div class="pw-check-container">
+            <p class="pw-check">비밀번호 확인</p>
+            <input type="password" placeholder="비밀번호 입력" id="pw-check">
+        </div>
+        <div class="mail-container">
+            <p class="mail">이메일</p>
+            <div class="mail-box">
+                <input type="text" placeholder="메일 입력" id="mail-id-input">
+                <p>@</p>
+                <select id="selbox" class="category" name="selbox">
+                    <option value="">선택</option>
+                    <option value="google">google.com</option>
+                    <option value="naver">naver.com</option>
+                    <option value="kakao">kakao.com</option>
+                    <option value="daum">hanmail.com</option>
+                    <option value="direct">직접입력</option>
+                </select>
+                <input type="text" id="selboxDirect" name="selboxDirect"/>
+                
+            </div>
+        </div>
+    </div>
+    <button class="join-btn">회원가입</button>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../config/config.js"></script>
+    <script src="./js/join.js"></script>
+</body>
+</html>

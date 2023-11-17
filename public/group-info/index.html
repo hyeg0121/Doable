@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>더 able</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <main>
+        <div class="info-container">
+            <div class="create-group-container">
+                <i class='bx bx-chevron-left' onclick="location.href='../group/index.html'"></i>
+                <p class="create-text">그룹 정보</p>
+            </div>
+            <div class="group-info">
+                <div class="group-name-contanier">
+                    <p>그룹 이름</p>
+                    <h1 id="group-name">물 2L 먹는 하마</h1>
+                </div>
+                <div class="group-explanation-container">
+                    <p>그룹 설명</p>
+                    <h2 id="group-desc">물을 꾸준히 많이 마시기위한 습관들이기 그룹</h2>
+                </div>
+                <div class="group-goal-container">
+                    <p>목표</p>
+                    <h2 id="group-todo">평소 마시던 물에서 한 잔씩 더 마셔서 꾸준히 2L 마시기</h2>
+                </div>
+                <div class="group-member-container">
+                    <p>멤버 수</p>
+                    <h2 id="group-member-count">12</h2>
+                </div>
+            </div>
+        </div>
+        <button class="join-btn">그룹 가입하기</button>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../config/config.js"></script>
+    <script src="./js/groupInfo.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+}
+
+:root {
+    --main-font: 'Pretendard-Regular';
+
+    /* color */
+    --primary-color: #FF665C;
+    --gray-300: #E0E0E0;
+    --gray-400: #BDBDBD;
+    --gray-500: #9E9E9E;
+    --gray-800: #49454F;
+    --gray-900: #212121;
+    --white: #FFFFFF;
+    --black: #121212;
+}
+
+html, body {
+    width: 100%;
+}
+
+#main {
+    margin: 40px;
+    width: calc(100% - 40px * 2);
+}
+
+.labels {
+    position: absolute;
+    top: 22.5vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.slogan {
+    font-family: var(--main-font);
+    font-weight: 100;
+    font-size: 24px;
+}
+
+.slogan:nth-child(2) {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.buttons {
+    position: absolute;
+    bottom: 10vh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+.login_button,
+.join_button {
+    width: 80vw;
+    height: 7vh;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 1rem;
+    cursor: pointer;
+}

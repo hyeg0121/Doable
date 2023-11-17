@@ -1,0 +1,220 @@
+html,
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+
+p{
+    margin: 0;
+}
+.ment{
+    display: flex;
+    width: 100%;
+    padding: 7%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10%;
+}
+.text{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.welcome-comment{
+    font-size: 1.4rem;
+    font-weight: bolder;
+    margin: 0;
+}
+.remaining-goals{
+    border: var(--primary-color) solid 1px;
+    width: fit-content;
+    border-radius: 50px;
+    padding: 5px 10px;
+    color: var(--primary-color);
+    font-size: 0.8rem;
+    font-weight: 100;
+    text-align: center;
+    margin: 0;
+}
+.profile-image{
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-image: url(/img/profile.png);
+    background-size: cover;
+}
+.statistics{
+    width: 90%;
+    display: flex;
+    padding: 0 20px;
+    justify-content: flex-start;
+    background-color: #FFE0DE;
+    margin: 0 auto;
+    border-radius: 7px;
+    column-gap: 5px;
+}
+.calender{
+    height: 150px;
+}
+.text1{
+    font-weight: bold;
+}
+.text1,
+.text2{
+    color: var(--primary-color);
+    margin: 12px 0 12px 0;
+    font-size: 0.9rem;
+}
+.goals-container{
+    padding: 7%;
+}
+.d-day{
+    margin-bottom: 4%;
+    font-size: 1.1rem;
+}
+.keyword-container{
+    display: flex;
+    column-gap: 10px;
+    overflow-x: scroll;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.keyword-color{
+    width: 15px;
+    height: 15px;
+    background-color: #FFE0DE;
+    border-radius: 100%;
+}
+.keyword{
+    border: var(--gray-300) solid 1px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;    
+    padding: 5px 9px 5px 5px;
+    background-color: transparent;
+    font-size: 13px;
+    font-weight: 100;
+    cursor: pointer;
+}
+.keyword-box{
+    display: flex;
+    justify-content: space-between;
+}
+.keyword-icon{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    background-color: transparent;
+}
+.keyword-name{
+    width: fit-content;
+}
+.dot-icon{
+    color: var(--gray-400);
+}
+.goals-btn{
+    margin-top: 8%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    z-index: -999;
+    margin-bottom: 7vh;
+}
+.goal-box{
+    position: relative;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 10px;
+    /* border: var(--gray-300) solid 1px; */
+    box-shadow: 1px 1px 8px -3px var(--gray-300);
+    border-radius: 5px;
+    background-color: var(--white);
+    padding: 10px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+.modalContent{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1vh;
+    width: 40vw;
+    background-color: var(--white);
+    box-shadow: 2px 2px 15px -3px var(--gray-300);
+    padding: 2%;
+    border-radius: 5px;
+    top: 2vw;
+    right: 7vw;
+    z-index: 1;
+}
+.correction,
+.delete{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5%;
+}
+.correction:hover,
+.delete:hover{
+    background-color: #fafafaba;
+}
+.goal{
+    font-size: 1.1rem;
+}
+.calender{
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto;
+    row-gap: 5px;
+    padding-bottom: 15px;
+}
+.day-container,
+.day-container1{
+    display: flex;
+    column-gap: 10%;
+    align-items: center;
+}
+.day,
+.week{
+    display: flex;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.week{
+    color: var(--gray-300);
+    margin-top: 10px;
+}
+.year{
+    font-size: 1.2rem;
+}
+.point{
+    position: relative;
+    color: var(--white);
+}
+.point-color{
+    position: absolute;
+    background-color: var(--primary-color);
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    z-index: -1;
+}
