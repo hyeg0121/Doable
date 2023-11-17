@@ -11,13 +11,13 @@ loginButton.onclick = () => {
         user_pw: password
     };
 
-    axios.post(`${BASE_URL}/login`, loginRequest)
+    axios.post(`/login`, loginRequest)
     .then(response => {
         console.log(response);
         const userNo = response.data.result;
         setCookie('login', userNo);
         console.log('Registration successful:', response.data);
-        window.open('/main/index.html', '_top');
+        window.open('/main', '_top');
 
     })
     .catch(error => {
