@@ -1,5 +1,4 @@
-// const BASE_URL = "http://ec2-15-164-2-91.ap-northeast-2.compute.amazonaws.com:3000";
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "";
 const USER_NO = getCookie('login');
 
 function setCookie(name, value, unixTime) {
