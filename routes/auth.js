@@ -42,7 +42,8 @@ router.post('/login', (req, res) => {
 
 router.post('/join', (req, res) => {
     bcrypt.hash(req.body.user_pw, SALT_ROUNDS, function (err, hash) {
-        pool.query('INSERT INTO user(user_name, user_id, user_pw, user_email) VALUES(?, ?, ?, ?)',
+        pool.query(`INSERT INTO user(user_name, user_id, user_pw, user_email, user_last_completed, user_now_completed)
+                    VALUES (?, ?, ?, ?, 0, 0)`,
             [req.body.user_name, req.body.user_id, hash, req.body.user_email],
             function (err, rows, fields) {
                 if (err) {
