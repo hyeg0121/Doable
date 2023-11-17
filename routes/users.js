@@ -49,15 +49,15 @@ router.get('/:user_no/groups', (req, res) => {
 
     pool.query(
         `SELECT todo_group.*
-        FROM membership
-        INNER JOIN todo_group ON membership.group_no = todo_group.group_no
-        WHERE membership.user_no = ?`,
+         FROM membership
+                  INNER JOIN todo_group ON membership.group_no = todo_group.group_no
+         WHERE membership.user_no = ?`,
         [user_no],
         (err, results) => {
             if (err) {
                 console.error('검색 오류: ', err);
                 res.status(500).json({message: '데이터를 찾을 수 없음'});
-            }else {
+            } else {
                 res.status(200).json(results);
             }
         });
@@ -67,7 +67,9 @@ router.get('/:user_no/categories', (req, res) => {
     const user_no = req.params.user_no;
 
     pool.query(
-        `SELECT * FROM category WHERE user_no = ?`,
+        `SELECT *
+         FROM category
+         WHERE user_no = ?`,
         [user_no],
         (err, results) => {
             if (err) {
@@ -84,10 +86,11 @@ router.get('/:user_no/todos', (req, res) => {
     const user_no = req.params.user_no;
 
     pool.query(
-        `SELECT todo.*, category.* FROM todo 
-        INNER JOIN category ON todo.category_no = category.category_no
-        WHERE todo.user_no = ?
-        ORDER BY todo.todo_completed`,
+        `SELECT todo.*, category.*
+         FROM todo
+                  INNER JOIN category ON todo.category_no = category.category_no
+         WHERE todo.user_no = ?
+         ORDER BY todo.todo_completed`,
         [user_no],
         (err, results) => {
             if (err) {
@@ -110,6 +113,41 @@ router.get('/:user_no/todos', (req, res) => {
             }
         }
     )
+});
+
+router.get('/:user_no/todos/completed', (req, res) => {
+    const user_no = req.params.user_no;
+    pool.query(
+        `SELECT *
+         FROM todo
+         WHERE todo_completed = 1
+           AND user_no = ?`,
+        [user_no],
+        (err, results) => {
+            if (err) res.status(400).json({error: '완료된 투두 조회 중 실패하였습니다.'});
+            else res.status(200).json(results);
+        }
+    )
+});
+
+router.patch('/:user_no/completed', (req, res) => {
+    const params = [
+        req.body.user_last_completed,
+        req.body.user_now_completed,
+        req.params.user_no
+    ];
+
+    pool.query(
+        `UPDATE user
+         SET user_last_completed = ?,
+             user_now_completed  = ?
+         WHERE user_no = ?`,
+        params,
+        (err, results) => {
+            if (err) res.status(400).json({error: '업데이트에 실패하였습니다.'});
+            else res.status(200).json(results);
+        }
+    );
 });
 
 
