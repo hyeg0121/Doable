@@ -150,5 +150,21 @@ router.patch('/:user_no/completed', (req, res) => {
     );
 });
 
+router.patch('/:user_no', (req, res) => {
+   const params = [
+       req.body.user_name,
+       req.params.user_no
+   ];
+
+   pool.query(
+       `UPDATE user SET user_name = ? WHERE user_no = ?`,
+       params,
+       (err, results) => {
+           if (err) res.status(400).json({error: '업데이트에 실패하였습니다.'});
+           else res.status(200).json(results);
+       }
+   );
+});
+
 
 module.exports = router;
