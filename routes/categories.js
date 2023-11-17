@@ -25,6 +25,19 @@ router.get('/', (req, res) => {
     )
 });
 
+router.get('/:category_no', (req, res) => {
+   const categoruyNo = req.params.category_no;
+   pool.query(
+       `SELECT * FROM category WHERE category_no = ?`,
+       [categoruyNo],
+       (err, results) => {
+           if (err) res.status(400).json({error: '카테고리 조회에 실패하였습니다.'});
+           else if (results.length === 0) res.status(404).json({error: '카테고리가 존재하지 않습니다.'});
+           else res.status(200).json(results[0]);
+       }
+   )
+});
+
 router.post('/', (req, res) => {
     const params = [
         req.body.user_no,
