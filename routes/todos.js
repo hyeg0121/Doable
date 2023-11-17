@@ -17,8 +17,8 @@ router.post('/', (req, res) => {
     ];
 
     pool.query(
-        `INSERT INTO todo (user_no, category_no, todo_name, todo_completed)
-         VALUES (?, ?, ?, 0)`,
+        `INSERT INTO todo (user_no, category_no, todo_name, todo_completed, todo_date)
+         VALUES (?, ?, ?, 0, now())`,
         params,
         (err, results) => {
             if (err) {
@@ -40,8 +40,8 @@ router.post('/daily', (req, res) => {
     ];
 
     pool.query(
-        `INSERT INTO todo (user_no, category_no, todo_name, todo_completed)
-         VALUES (?, ?, ?, 0)`,
+        `INSERT INTO todo (user_no, category_no, todo_name, todo_completed, todo_date)
+         VALUES (?, ?, ?, 0, now())`,
         params1,
         (err, results) => {
             if (err) {
@@ -57,8 +57,8 @@ router.post('/daily', (req, res) => {
                 console.log(params2);
 
                 pool.query(
-                    `INSERT INTO daily_todo (todo_no, todo_startdate, todo_enddate)
-                     VALUES (?, ?, ?)`,
+                    `INSERT INTO todo (user_no, category_no, todo_name, todo_completed, todo_date)
+                     VALUES (?, ?, ?, 0, now())`,
                     params2,
                     (err, results) => {
                         if (err) {
@@ -185,6 +185,8 @@ router.patch('/:todo_no/complete', (req, res) => {
     )
 })
 
+
+
 router.delete('/:todo_no', (req, res) => {
     const todo_no = req.params.todo_no;
     pool.query(
@@ -213,6 +215,37 @@ router.get('/:todo_no/daily', (req, res) => {
         }
     );
 });
+
+router.delete('/daily/:todo_no', (req, res) => {
+    const todo_no = req.params.todo_no;
+    pool.query(
+        'DELETE FROM daily_todo WHERE todo_no = ? ',
+        [todo_no],
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(400).json({message: '투두를 삭제하지 못했습니다.'});
+            } else {
+                res.status(400).json(results);
+            }
+        }
+    )
+});
+
+router.get('/:todo_no/increase', (req, res) => {
+    const todo_no = req.params.todo_no;
+    pool.query(
+        `SELECT * FROM increase_todo WHERE todo_no = ?`,
+        [todo_no],
+        (err, results) => {
+            if (err) res.status(400).json({error: '투두를 조회할 수 없습니다.'});
+            else if (results.length === 0) res.status(200).json(results);
+            else res.status(200).json(results[0]);
+        }
+    );
+});
+
+
 
 
 module.exports = router;
