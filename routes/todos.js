@@ -185,7 +185,24 @@ router.patch('/:todo_no/complete', (req, res) => {
     )
 })
 
-
+router.patch('/:todo_no/incomplete', (req, res) => {
+    const todo_no = req.params.todo_no;
+    console.log(todo_no)
+    pool.query(
+        `UPDATE todo
+         SET todo_completed = 0
+         WHERE todo_no = ?`,
+        [todo_no],
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(400).json({error: '투두를 수정하지 못했습니다.'});
+            } else {
+                res.status(200).json({message: '투두를 성공적으로 수정하였습니다.'});
+            }
+        }
+    )
+});
 
 router.delete('/:todo_no', (req, res) => {
     const todo_no = req.params.todo_no;
