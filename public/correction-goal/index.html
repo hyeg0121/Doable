@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>더able</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../goal/css/index.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="correction-align">
+    <section class="correction-page">
+    <p class="correction-text">목표 수정하기</p>
+    <hr>
+        <div class="correction-box">
+            <div class="category-container" id="category-container">
+                <p class="main-text">카테고리</p>
+                <div class="category-box">
+                    <div class="category-color"></div>
+                    <select id="selbox" class="category" name="selbox">
+                        <option value="">선택</option>
+                        <option value="study">공부</option>
+                        <option value="diet">다이어트</option>
+                        <option value="exercise">운동</option>
+                        <option value="direct">직접입력</option>
+                    </select>
+                            <input type="text" id="selboxDirect" name="selboxDirect" class="selboxDirect"/>
+                </div>
+            </div>
+            <div class="modalWrap correction-modal">
+                <div class="modalContent">
+                    <div class="modalBody">
+                        <div class="category-choice-container">
+                            <div class="color orange"></div>
+                            <div class="color yellow"></div>
+                            <div class="color green"></div>
+                            <div class="color blue"></div>
+                            <div class="color purple"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="goal-name-box">
+                <p class="main-text">목표 이름</p>
+                <input type="text" placeholder="목표 이름을 작성하세요" class="goal-name">
+            </div>
+            <div class="amount-container">
+                <div class="amount-setting">
+                    <p class="main-text">양 설정</p>
+                    <select name="amount" class="amount">
+                        <option value="plus">
+                            더하기
+                        </option>
+                        <option value="minus">
+                            덜하기
+                        </option>
+                        <option value="else">
+                            변화없음
+                        </option>
+                    </select>
+                </div>
+                <div class="initial-amount">
+                    <p class="main-text">처음 시작한 양</p>
+                    <div class="initial-box">
+                        <input type="text" class="input-amount" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                        <div class="up-down-btn">
+                            <button class="up"><i class='bx bx-chevron-up'></i></button>
+                            <button class="down"><i class='bx bx-chevron-down'></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="goal-name-box unit-box">
+                <p class="main-text">단위</p>
+                <input type="text" placeholder="단위를 설정하세요" class="goal-name unit">
+            </div>
+            <div class="more_less_container">
+                <div class="checkbox_container">
+                    <p class="more-less-text">점점 늘리기/줄이기</p>
+                    <input type="checkbox" name="check" id="check1" class="custom-checkbox">
+                    <label for="check1"></label>
+                </div>
+                <div class="more_less_amount">
+                    <div class="main-text">양</div>
+                    <input type="text" class="input-amount" id="increase-amount" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                </div>
+            </div>
+            <div class="day-container">
+                <div class="start-container">
+                    <p class="main-text">시작 날짜</p>
+                    <input type="date" name="start-date" id="start-date">
+                </div>
+                <div class="end-container">
+                    <p class="main-text">종료 날짜</p>
+                    <input type="date" name="end-date" id="end-date">
+                </div>
+            </div>
+            <button class="correction-btn inner-btn-style">목표 수정</button>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../goal/js/index.js"></script>
+</body>
+</html>

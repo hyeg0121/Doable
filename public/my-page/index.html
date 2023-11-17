@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>더able</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <main id="main">
+        <div class="ment">
+            <div class="user">
+                <div class="profile-image"></div>
+                <div class="user-container">
+                    <div class="name-container">
+                        <h1 class="user-name">황혜경</h1>
+                        <input type="text" id="name-correction" class="name-correction">
+                        <i class="bx bx-pencil pencil-icon"></i>
+                    </div>
+                    <p class="user-id">hurlud</p>
+                </div>
+            </div>
+            <!-- <i class='bx bx-cog'></i> -->
+        </div>
+        <div class="user-info-container">
+            <p class="sub-text">내 정보</p>
+            <div class="management-container">
+                <div class="user-info">
+                    <!-- <p class="main-text" onclick="location.href='/user-info/'">회원 정보 관리</p> -->
+                    <p class="main-text">회원 정보 관리</p>
+                    <i class='bx bx-chevron-right'></i>
+                </div>
+                <div class="my-group" onclick="location.href='/group-management/'">
+                    <p class="main-text">내 그룹 관리</p>
+                    <i class='bx bx-chevron-right'></i>
+                </div>
+            </div>
+        </div>
+        <!-- 하단 메뉴 -->
+        <div class="menu">
+            <div class="menu-details">
+                <ul>
+                    <li>
+                        <a href="/main/index.html">
+                            <i class='bx bx-home-alt bar-icon'></i>
+                            <p class="bar-name">홈</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/goal/index.html">
+                            <i class='bx bx-check bar-icon'></i>
+                            <p class="bar-name">목표관리</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/group/index.html">
+                            <i class='bx bxs-group bar-icon'></i>
+                            <p class="bar-name">그룹</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/my-page/index.html">
+                            <i class='bx bx-user bar-icon' style="color: var(--primary-color);"></i>
+                            <p class="bar-name" style="color: var(--primary-color);">마이페이지</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../config/config.js"></script>
+    <script src="./js/mypage.js"></script>
+</body>
+
+</html>
