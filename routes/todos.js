@@ -50,9 +50,11 @@ router.post('/daily', (req, res) => {
             } else {
                 const params2 = [
                     results.insertId,
-                    req.body.startdate,
-                    req.body.enddate
+                    req.body.todo_startdate,
+                    req.body.todo_enddate
                 ];
+
+                console.log(params2);
 
                 pool.query(
                     `INSERT INTO daily_todo (todo_no, todo_startdate, todo_enddate)
@@ -91,8 +93,8 @@ router.post('/daily/increase', (req, res) => {
             } else {
                 const params2 = [
                     results.insertId,
-                    req.body.startdate,
-                    req.body.enddate,
+                    req.body.todo_startdate,
+                    req.body.todo_enddate,
                     req.body.todo_option,
                     req.body.todo_startvalue,
                     req.body.todo_amount,
@@ -197,6 +199,19 @@ router.delete('/:todo_no', (req, res) => {
             }
         }
     )
+});
+
+router.get('/:todo_no/daily', (req, res) => {
+    const todo_no = req.params.todo_no;
+    pool.query(
+        `SELECT * FROM daily_todo WHERE todo_no = ?`,
+        [todo_no],
+        (err, results) => {
+            if (err) res.status(400).json({error: '투두를 조회할 수 없습니다.'});
+            else if (results.length === 0) res.status(200).json(results);
+            else res.status(200).json(results[0]);
+        }
+    );
 });
 
 
