@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
         req.body.group_todo,
         req.body.group_option,
         req.body.creator_no,
-        req.body.group_unit,
+        req.body.group_unit
     ];
     pool.query(
         `INSERT INTO todo_group (group_name, group_desc, group_search, group_todo, group_option, creator_no, group_unit)
@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
                 pool.query(
                     `INSERT INTO membership (user_no, group_no, created_at)
                      VALUES (?, ?, now())`,
-                    [params[4], result.insertId],
+                    [params[5], result.insertId],
                     (err, result) => {
                         if (err) {
                             console.error('멤버 추가 오류:', err);
@@ -191,12 +191,12 @@ router.patch('/:group_no/todos', (req, res) => {
                 let userNo = result.bestuser_no;
 
                 if (option) {   // 덜하기
-                    if (params[1] < amount) {
+                    if (params[1] < amount || amount === null) {
                         userNo = params[0];
                         amount = params[1];
                     }
                 } else {
-                    if (amount < params[1]) {
+                    if (amount < params[1] || amount === null) {
                         userNo = params[0];
                         amount = params[1];
                     }
