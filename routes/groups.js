@@ -247,5 +247,22 @@ router.post('/:group_no/users/:user_no', (req, res) => {
     )
 });
 
+router.delete('/:group_no/users/:user_no', (req, res) => {
+    const groupNo = req.params.group_no;
+    const userNo = req.params.user_no;
+
+    pool.query(
+        `DELETE
+         FROM membership
+         WHERE group_no = ?
+           AND user_no = ?`,
+        [groupNo, userNo],
+        (err, results) => {
+            if (err) res.status(400).json({error: '그룹 탈퇴를 실패하였습니다.'});
+            else res.status(200).json(results);
+        }
+    )
+})
+
 
 module.exports = router;
