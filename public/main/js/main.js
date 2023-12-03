@@ -76,7 +76,7 @@ async function showUserInfo() {
 async function showUsersTodos() {
     todosDiv.innerHTML = '';
     await axios.get(`${BASE_URL}/users/${USER_NO}/todos`)
-        .then(response => {
+        .then(async response => {
             const dataList = response.data;
 
             remainingTodoCount = dataList.length;
@@ -102,9 +102,15 @@ async function showUsersTodos() {
 
                 const dotIcon = document.createElement('i');
                 dotIcon.classList.add('bx', 'bx-dots-vertical-rounded', 'dot-icon');
+
                 const goal = document.createElement('goal');
                 goal.className = 'goal';
                 goal.innerHTML = data.todo_name;
+
+                const grow = await isGrowTodo(data.todo_no);
+                if (grow !== null && grow !== undefined && grow.length !== 0) {
+                    goal.innerHTML = `${data.todo_name}    (${grow.todo_startvalue}${grow.todo_unit})`;
+                }
 
                 const modalContent = document.createElement('div');
                 modalContent.className = 'modalContent';
@@ -235,7 +241,7 @@ document.onclick = e => {
 async function showUsersTodosFiltered(category_no) {
     todosDiv.innerHTML = '';
     await axios.get(`${BASE_URL}/users/${USER_NO}/todos`)
-        .then(response => {
+        .then(async response => {
             const dataList = response.data;
 
             remainingTodoCount = dataList.length;
@@ -261,9 +267,15 @@ async function showUsersTodosFiltered(category_no) {
 
                 const dotIcon = document.createElement('i');
                 dotIcon.classList.add('bx', 'bx-dots-vertical-rounded', 'dot-icon');
+
                 const goal = document.createElement('goal');
                 goal.className = 'goal';
                 goal.innerHTML = data.todo_name;
+
+                const grow = await isGrowTodo(data.todo_no);
+                if (grow !== null && grow !== undefined && grow.length !== 0) {
+                    goal.innerHTML = `${data.todo_name}    (${grow.todo_startvalue}${grow.todo_unit})`;
+                }
 
                 const modalContent = document.createElement('div');
                 modalContent.className = 'modalContent';
@@ -332,4 +344,12 @@ async function showUsersTodosFiltered(category_no) {
         });
 
     categoriesDiv.appendChild(todosDiv);
+}
+
+async function isGrowTodo(todoNo) {
+    return await axios.get(`${BASE_URL}/todos/${todoNo}/increase`)
+        .then(response => response.data)
+        .catch(error => {
+            return null;
+        })
 }
