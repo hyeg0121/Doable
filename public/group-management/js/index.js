@@ -18,7 +18,7 @@
 //     function showModal() {
 //         modal.css('display', 'flex');
 //     }
-    
+
 //     function closeModal() {
 //         modal.css('display', 'none');
 //     }    
@@ -70,10 +70,9 @@ $(function () {
 
     function handleMouseDown() {
         var myGroupContainer = $(this).closest('.my-group-container');
-        clickTimer = setTimeout(function () {
-            myGroupContainer.find(".modal").show();
-            myGroupContainer.find(".modal").css('display', 'flex');
-        }, 1000);
+
+        myGroupContainer.find(".modal").show();
+        myGroupContainer.find(".modal").css('display', 'flex');
     }
 
     function handleMouseUp() {
@@ -84,9 +83,9 @@ $(function () {
         $(".modal").hide();
     });
 
-    $(document).on('click', function () {
-        $(".modal").hide();
-    });
+    // $(document).on('click', function () {
+    //     $(".modal").hide();
+    // });
 
     groupManagementContainer.on('click', ".modal", function (event) {
         event.stopPropagation();

@@ -1,6 +1,6 @@
 const groupManagementContainer = document.getElementsByClassName('group-management-container')[0];
 
-getMyGroups();      
+getMyGroups();
 
 async function getMyGroups() {
     const results = await axios.get(
