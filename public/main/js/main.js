@@ -207,6 +207,11 @@ async function showUsersCategories() {
                 keyword.appendChild(keywordName);
                 keywordContainer.appendChild(keyword);
                 categoriesDiv.appendChild(keywordContainer);
+
+                keyword.onclick = () => {
+                    showUsersTodosFiltered(data.category_no);
+                    console.log(data.category_no)
+                }
             }
 
         })
@@ -225,4 +230,106 @@ document.onclick = e => {
         })
     }
 
+}
+
+async function showUsersTodosFiltered(category_no) {
+    todosDiv.innerHTML = '';
+    await axios.get(`${BASE_URL}/users/${USER_NO}/todos`)
+        .then(response => {
+            const dataList = response.data;
+
+            remainingTodoCount = dataList.length;
+
+            for (let data of dataList) {
+                if (data.category.category_no != category_no) continue;
+                const goalBox = document.createElement('div');
+                goalBox.className = 'goal-box';
+
+                const keywordBox = document.createElement('div');
+                keywordBox.className = 'keyword-box';
+
+                const keywordIcon = document.createElement('div');
+                keywordIcon.className = 'keyword-icon';
+
+                const keywordColor = document.createElement('div');
+                keywordColor.className = 'keyword-color';
+                keywordColor.style.backgroundColor = data.category.category_color;
+
+                const keywordName = document.createElement('p');
+                keywordName.className = 'keyword-name';
+                keywordName.innerHTML = data.category.category_name;
+
+                const dotIcon = document.createElement('i');
+                dotIcon.classList.add('bx', 'bx-dots-vertical-rounded', 'dot-icon');
+                const goal = document.createElement('goal');
+                goal.className = 'goal';
+                goal.innerHTML = data.todo_name;
+
+                const modalContent = document.createElement('div');
+                modalContent.className = 'modalContent';
+
+                const deleteDiv = document.createElement('div');
+                deleteDiv.className = 'delete';
+                deleteDiv.innerHTML = '삭제';
+
+                keywordIcon.appendChild(keywordColor);
+                keywordIcon.appendChild(keywordName);
+                keywordBox.appendChild(keywordIcon);
+                keywordBox.appendChild(dotIcon);
+                modalContent.appendChild(deleteDiv);
+                goalBox.appendChild(keywordBox);
+                goalBox.appendChild(goal);
+                goalBox.appendChild(modalContent);
+                todosDiv.appendChild(goalBox);
+
+                modalContent.style.display = 'none';
+
+                dotIcon.onclick = () => {
+                    [...document.getElementsByClassName('modalContent')].forEach(e => {
+                        e.style.display = 'none';
+                    })
+                    modalContent.style.display = 'flex';
+                }
+
+                // 투두 삭제
+                deleteDiv.onclick = () => {
+                    axios.delete(`${BASE_URL}/todos/${data.todo_no}`)
+                        .then(response => {
+                            location.reload();
+                        })
+                        .catch(error => location.reload());
+                }
+
+
+                // 투두 완료
+                goal.onclick = () => {
+                    modalContent.style.display = 'none';
+                    axios.patch(`${BASE_URL}/todos/${data.todo_no}/complete`)
+                        .then(response => {
+                            location.reload();
+                        })
+                        .catch(error => console.log(error));
+                }
+
+                // 완료된 투두 스타일
+                if (data.todo_completed === 1) {
+                    dotIcon.style.display = 'none';
+                    goalBox.style.opacity = '0.3'
+                    goalBox.style.border = '1px solid var(--gray-300)'
+                    goal.onclick = () => {
+                        axios.patch(`${BASE_URL}/todos/${data.todo_no}/incomplete`)
+                            .then(response => window.open('/main/', '_top'))
+                            .catch(error => false);
+                    };
+                    remainingTodoCount--;
+                }
+            }
+
+            remainingGoals.innerHTML = `오늘의 목표가 ${remainingTodoCount}개 남았습니다.`;
+        })
+        .catch(err => {
+            console.error(err);
+        });
+
+    categoriesDiv.appendChild(todosDiv);
 }
