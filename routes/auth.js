@@ -49,7 +49,18 @@ router.post('/join', (req, res) => {
                 if (err) {
                     res.json({result: err})
                 } else {
-                    res.json({result: 'ok'})
+                    pool.query(
+                        `INSERT INTO category (user_no, category_name, category_color)
+                         VALUES (?, ?, ?)`,
+                        [rows.insertId, '기본', 'rgb(255, 156, 90)'],
+                        (err, rows) => {
+                            if (err) {
+                                res.status(400).json({error: '카테고리 생성 중 실패하였습니다.'});
+                            } else {
+                                res.status(201).json({message: '회원가입이 완료되었습니다.'});
+                            }
+                        }
+                    )
                 }
             })
     })
